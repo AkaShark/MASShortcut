@@ -474,6 +474,16 @@ void *kUserDataHint = &kUserDataHint;
                 weakSelf.shortcutValue = doubleModifierKey;
                 weakSelf.recording = NO;
             }
+            else if ((shortcut.modifierFlags == NSEventModifierFlagCommand ||
+                     shortcut.modifierFlags == NSEventModifierFlagOption  ||
+                     shortcut.modifierFlags == NSEventModifierFlagControl ||
+                     shortcut.modifierFlags == NSEventModifierFlagShift) && 
+                     preModifierFlags.keyCode == shortcut.keyCode) {
+                weakSelf.shortcutPlaceholder = shortcut.modifierFlagsString;
+                MASShortcut *doubleModifierKey = [MASShortcut shortcutDoubleModifierKeyWithCode:shortcut.keyCode modifierFlags:shortcut.modifierFlags];
+                weakSelf.shortcutValue = doubleModifierKey;
+                weakSelf.recording = NO;
+            }
 
             else {
                 // Verify possible shortcut
